@@ -133,25 +133,33 @@ bool Gry::orzelReszka() {
 void Gry::wylosujGre() {
     srand(time(0));  
     int losowaGra = rand() % 4 + 1;  
+    int losowanie = rand() % 2 + 1;
 
-    switch (losowaGra) {
-        case 1:
-            cout << "Losujemy... Orzel czy Reszka!" << endl;
-            orzelReszka();
+switch(losowanie) { 
+    case 1:
+        switch (losowaGra) {
+            case 1:
+                cout << "Losujemy... Orzel czy Reszka!" << endl;
+                orzelReszka();
+                break;
+            case 2:
+                cout << "Losujemy... Zgadywanie Liczby!" << endl;
+                zgadnijLiczbe();
+                break;
+            case 3:
+                cout << "Losujemy... Kamień, Papier, Nożyce!" << endl;
+                kamienPapierNozyce();
+                break;
+            case 4:
+                cout << "Losujemy... Jednoręki Bandyta!" << endl;
+                jednoreki();
+                break;
+            default:
+                cout << "Błąd losowania!" << endl;
+            }
             break;
-        case 2:
-            cout << "Losujemy... Zgadywanie Liczby!" << endl;
-            zgadnijLiczbe();
-            break;
-        case 3:
-            cout << "Losujemy... Kamień, Papier, Nożyce!" << endl;
-            kamienPapierNozyce();
-            break;
-        case 4:
-            cout << "Losujemy... Jednoręki Bandyta!" << endl;
-            jednoreki();
-            break;
-        default:
-            cout << "Błąd losowania!" << endl;
-    }
-}
+            case 2:
+        cout << "Nie udalo sie zagrac, moze nastepnym razem" << endl;
+        break;     
+        }  
+}         

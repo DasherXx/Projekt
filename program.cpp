@@ -10,8 +10,12 @@ using namespace std;
 
 int main() {
     
+    //Okna_dialogowe oknaDialogowe;
+    
+    //oknaDialogowe.rozpoczecie_gry();
+
     Okna_dialogowe oknaDialogowe;
-    oknaDialogowe.rozpoczecie_gry();
+    oknaDialogowe.menu();
 
     string imie, nazwisko;
 
@@ -20,9 +24,9 @@ int main() {
     cout << "Podaj swoje nazwisko: ";
     cin >> nazwisko;
 
-    Student pracus(imie, nazwisko, "Pracus", 1, 10, 100, 15, 0 );
-    Student imprezowicz(imie, nazwisko, "Imprezowicz", 1, 10, 100, 15, 0 );
-    Student obibok(imie, nazwisko, "Obibok", 1, 10, 125, 15, 0 );
+    Student pracus(imie, nazwisko, "Pracus", 1, 15, 100, 15, 0 );
+    Student imprezowicz(imie, nazwisko, "Imprezowicz", 1, 5, 100, -15, 0 );
+    Student obibok(imie, nazwisko, "Obibok", 1, 0, 125, 0, 0 );
 
     int wybor;
     Student *gracz = nullptr;
@@ -49,19 +53,14 @@ int main() {
             gracz = &obibok;
     }
 
-
-
-
-    cout << endl << "Twoj profil: ";
-    gracz->wyswietlanieDanych(); 
         
     int dzien;
     string koniec_dnia;
 
-    // tu zaczyna sie petla do ...while ktora odpowiada za zdobywanie expa i statystyk, oraz awans na nastepny semestr , w przyszlosci dodac trzeba egzamin na koniec semestru 
-    // oraz mozliwosc odpadniecia ze studiow gdy np: stres bedzie za wysoki albo skonczy sie energia.
+    // Główna pętla gry ..... 
 do {  
-
+    cout << endl << "Twoj profil: ";
+    gracz->wyswietlanieDanych();
     cout << endl << "Co dzisiaj bedziemy robic? " << endl;
     cout << "1. Uczyc sie ? " << endl;
     cout << "2. Imprezka? " << endl;
@@ -76,24 +75,52 @@ do {
         case 1:
             gracz->uczeSie();
             oknaDialogowe.minigierka();
+            if(Gry::jednoreki) {
+                gracz->wiedza += 10;
+            }else if(Gry::orzelReszka) {
+                gracz->wiedza += 10;
+            }else if(Gry::kamienPapierNozyce) {
+                gracz->wiedza +=10;
+            }else if(Gry::zgadnijLiczbe) {
+                gracz->wiedza += 10;
+            }
             break;
         case 2:
             gracz->imprezuj();
             oknaDialogowe.minigierka();
+            if(Gry::jednoreki) {
+                gracz->wiedza += 10;
+            }else if(Gry::orzelReszka) {
+                gracz->wiedza += 10;
+            }else if(Gry::kamienPapierNozyce) {
+                gracz->wiedza +=10;
+            }else if(Gry::zgadnijLiczbe) {
+                gracz->wiedza += 10;
+            }
+            
             break;
         case 3:
             gracz->odpoczywaj();
             oknaDialogowe.minigierka();
+            if(Gry::jednoreki) {
+                gracz->wiedza += 10;
+            }else if(Gry::orzelReszka) {
+                gracz->wiedza += 10;
+            }else if(Gry::kamienPapierNozyce) {
+                gracz->wiedza +=10;
+            }else if(Gry::zgadnijLiczbe) {
+                gracz->wiedza += 10;
+            }
             break;
         default:
             std::cout << "Nie ma juz teraz odwrotu" << std::endl;
     }
-    
-    
-    gracz->wyswietlanieDanych();
+
     gracz->sprawdzAwans();
-    cout << R"(  -----------------           Nastepny dzien: wcisnij "t"           ---------------------)" << endl;
+    gracz->wyswietlanieDanych();
+    cout << endl << R"(  -----------------           Nastepny dzien: wcisnij "t"           ---------------------)" << endl;
     cin >> koniec_dnia;
+    system("cls");
 
 } while (koniec_dnia == "t" );
 
@@ -113,3 +140,6 @@ do {
 
     return 0;
 }
+
+
+//C:\Users\mkopt\Desktop\1111\projekt\moje      g++ -o program program.cpp gry.cpp okna_dialogowe.cpp student.cpp egzaminy.cpp

@@ -13,9 +13,9 @@ using namespace std;
 void Student::pobieranieDanych() {
         
     cout << "Podaj imie: ";
-        cin >> imie;
-        cout << "Podaj nazwisko: ";
-        cin >> nazwisko;
+    cin >> imie;
+    cout << "Podaj nazwisko: ";
+    cin >> nazwisko;
 }
     
 void Student::wyswietlanieDanych() {
@@ -51,13 +51,13 @@ void Student::uczeSie() {
     Sleep(2000);
     wiedza += 40;
     energia -= 20;
-    stres += 10;
+    stres += 15;
     zdobadzXp(40); 
     
 }
 
 void Student::imprezuj() {
-    cout << imie << " " << nazwisko << " Imprezuje..." << endl;
+    cout << imie << " " << nazwisko << " Imprezuje ... ";
     Sleep(2000); 
     cout << "... ";
     Sleep(2000); 
@@ -66,19 +66,18 @@ void Student::imprezuj() {
     cout << "..." << endl;
     wiedza -= 25;
     energia -= 30;
-    stres -= 25;
+    stres += 50;
     zdobadzXp(40);
 }
 
 void Student::odpoczywaj() {
-    cout << imie << " " << nazwisko << " Odpoczywa..." << endl;
+    cout << imie << " " << nazwisko << " Odpoczywa ... ";
     Sleep(2000); 
     cout << "... ";
     Sleep(2000); 
     cout << "... ";
     Sleep(2000); 
     cout << "..." << endl;
-    // Dodac 25% szans na minigierke zwiekszajaca statystyki :P 
     energia += 25;
     stres -= 10;
     zdobadzXp(20);
@@ -87,19 +86,62 @@ void Student::odpoczywaj() {
 void Student::zdobadzXp(int xp) {
     punktyDoswiadczenia += xp;
     cout << imie << " " << nazwisko << " Zdobyl: " << xp << "pkt doswiadczenia(xp)" << endl << endl;
-    sprawdzAwans();
+    //sprawdzAwans();
+    
 
 }
+
 bool Student::sprawdzAwans() {
     int wymaganyXP = semestr * 100; 
-    
-    if(punktyDoswiadczenia >= wymaganyXP) {
+    int wymaganaWiedza = semestr * 75;
+
+    Egzaminy egzamin;
+    bool wynikEgzaminu = false;
+
+    if(stres >= 40 && stres < 69) {
+            Okna_dialogowe krytyczny;
+            krytyczny.krytyczny();
+            
+    } else if(stres >= 70) {
+            Okna_dialogowe choroszcza;
+            choroszcza.choroszcza();
+        while (true) {
+            if (GetAsyncKeyState(VK_ESCAPE)) {
+                exit(0);                               // Zamyka program po naciśnięciu ESC
+            }
+        }
+    return false;
+    }
+
+
+
+    if (punktyDoswiadczenia >= wymaganyXP && wiedza < wymaganaWiedza) {
+        cout << "Gratulacje!!! " << imie << " " << nazwisko << " zostajesz dopuszczony do zaliczenia semestru: " << semestr << endl;
+        cout << "Twoja wiedza jest zbyt niska, egzamin bedzie trudny." << endl;
+        wynikEgzaminu = egzamin.trudny();
+    } 
+    else if (punktyDoswiadczenia >= wymaganyXP && wiedza >= wymaganaWiedza) {
+        cout << "Gratulacje!!! " << imie << " " << nazwisko << " zostajesz dopuszczony do zaliczenia semestru: " << semestr << endl;
+        cout << "Twoja wiedza jest wystarczajaca, egzamin bedzie latwy." << endl;
+        wynikEgzaminu = egzamin.latwy();
+    } 
+    else {
+        cout << "Nie masz wystarczajacego doswiadczenia, aby podejsc do egzaminu." << endl;
+        return false; 
+    }
+
+    if (wynikEgzaminu) {
+        cout << "Egzamin zdany! Przechodzisz na kolejny semestr." << endl;
         semestr++;
         wiedza += 20;
         energia = 100;
-        stres = 0; 
-        cout << "Gratulacje!!!" << imie << " " << nazwisko << " Awansował na semest: " << semestr << endl;
-        return true;
+        stres = 0;
+    } else {
+        cout << "Egzamin niezdany. Musisz sprobowac ponownie." << endl;
     }
-    return false;
+
+    return wynikEgzaminu;
 }
+ 
+
+   //C:\Users\mkopt\Desktop\1111\projekt\moje\13.03

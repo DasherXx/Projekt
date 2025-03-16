@@ -17,7 +17,9 @@ class Okna_dialogowe {
         char wyborPostacii;
         void minigierka();
         char wyborGracza;
-
+        void choroszcza();
+        void krytyczny();
+        void menu();
 };
 
 class Student {
@@ -41,6 +43,7 @@ class Student {
     void imprezuj();
     void zdobadzXp(int xp);
     bool sprawdzAwans();
+    //bool rozpocznijEgzamin();
 };
 
 class Gry {      // metody klasy Gry sa w osobnym pliku gry.cpp
@@ -50,6 +53,12 @@ class Gry {      // metody klasy Gry sa w osobnym pliku gry.cpp
     bool kamienPapierNozyce();
     bool zgadnijLiczbe();
     bool orzelReszka();
+};
+
+class Egzaminy {
+    public:
+    bool trudny();
+    bool latwy();
 };
 
 

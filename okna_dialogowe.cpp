@@ -3,6 +3,10 @@
 #include <locale.h>
 #include <algorithm>
 #include <cctype>
+#include <windows.h>
+#include <cstdlib>
+
+using namespace std;
 
 
 void Okna_dialogowe::rozpoczecie_gry() {
@@ -37,6 +41,43 @@ void Okna_dialogowe::rozpoczecie_gry() {
     }
 }
 }
+
+void Okna_dialogowe::menu() {
+
+    int wyborMenu;
+
+    cout << "---------- MEMU ----------" << endl;
+    cout << "1. Rozpocznij gre" << endl;
+    cout << "2. Informacje o grze" << endl;
+    cout << "3. Tworcy" << endl;
+
+    cin >> wyborMenu;
+    
+    switch(wyborMenu) {
+        case 1:
+            Okna_dialogowe::rozpoczecie_gry();
+            break;
+        case 2:
+            Okna_dialogowe::informacje_klasy();
+            break;
+        case 3:
+            cout << "Dwa Kozaki" << endl;
+            cout << "1. wroc do menu" << endl;
+            int wroc;
+            cin >> wroc;
+            switch(wroc)
+                case 1:
+                    Okna_dialogowe::menu();
+                default:
+                    cout << "Nieprawidlowe polecenie" << endl;
+            break;
+
+    }
+
+
+    }
+
+
 void Okna_dialogowe::zakonczenie_gry() {
     std::cout << R"(  -----------------           Do zobaczenia           ---------------------)" << std::endl;
 
@@ -48,12 +89,10 @@ void Okna_dialogowe::komunikat(){
 }
 
 void Okna_dialogowe::informacje_klasy(){ //Trzeba dodac obsluge jedynie liczb bo sie program wypierdala jak to bedzie cos innego niz liczba
-    std::cout<<"Dowiedz sie wiecej o profesjach: "<<std::endl;
-    std::cout<<"1. Imprezowicz"<<std::endl;
-    std::cout<<"2. Pracus"<<std::endl;
-    std::cout<<"3. Obibok"<<std::endl;
-    std::cout << "4. --- Wybierz postac ---" << std::endl;
-    std::cout<<"5. Wyjdz z gry"<<std::endl;
+    std::cout << "1. Imprezowicz" << std::endl;
+    std::cout << "2. Pracus" << std::endl;
+    std::cout << "3. Obibok" << std::endl;
+    std::cout << "4. Wroc do menu"<< std::endl;
     while(true){
     std::cin>>infoKlasy;
         switch (infoKlasy) {
@@ -67,10 +106,7 @@ void Okna_dialogowe::informacje_klasy(){ //Trzeba dodac obsluge jedynie liczb bo
                 std::cout << "Obibok - Osoba pokroju  slynnego Filemona, bi-seks "<<std::endl;
                 break;
             case 4:
-                wyborKlasy(); 
-                return;
-            case 5:
-                exit(0); 
+                Okna_dialogowe::menu();
             default:
                 std::cout << "Zly numer sprobuj ponownie." << std::endl;
                 break;          
@@ -93,15 +129,26 @@ void Okna_dialogowe::wyborKlasy(){
 }
 void Okna_dialogowe::minigierka() {
     char wyborGracza;  
-    std::cout << "Czy chcesz zagrac minigre aby zwiekszyc statystyki?? (t/n)" << std::endl; 
+    std::cout << R"( Czy chcesz zagrac minigre aby zwiekszyc statystyki?? (t/n)   || 50% szans na wylosowanie minigry )" << std::endl; 
     std::cin >> wyborGracza;
 
     if (wyborGracza == 't') {
         Gry gra;  
-        gra.wylosujGre();  
+        gra.wylosujGre();   
         return;
     }
     else if (wyborGracza == 'n') {
         return;
     }
+}
+
+void Okna_dialogowe::choroszcza() {
+    cout << "Witamy w zakladzie psychiatrycznym w Choroszczy !!! My Cie tu uspokoimy..." << endl;
+    cout << "Aby zamknac gre, wcisnij klawisz ESC..." << endl;
+       
+}
+
+void Okna_dialogowe::krytyczny() {
+    cout << "Krytyczny poziom stresu !!! Jeszcze chwila i wyladujesz w wariatkowie" << endl;
+
 }
